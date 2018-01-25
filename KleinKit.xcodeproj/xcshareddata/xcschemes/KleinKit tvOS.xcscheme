@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D5DE7D4F20194977001B8C51"
-               BuildableName = "KleinKit_tvOS.framework"
+               BuildableName = "KleinKit.framework"
                BlueprintName = "KleinKit tvOS"
                ReferencedContainer = "container:KleinKit.xcodeproj">
             </BuildableReference>
@@ -48,7 +48,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D5DE7D4F20194977001B8C51"
-            BuildableName = "KleinKit_tvOS.framework"
+            BuildableName = "KleinKit.framework"
             BlueprintName = "KleinKit tvOS"
             ReferencedContainer = "container:KleinKit.xcodeproj">
          </BuildableReference>
@@ -66,7 +66,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D5DE7D4F20194977001B8C51"
-            BuildableName = "KleinKit_tvOS.framework"
+            BuildableName = "KleinKit.framework"
             BlueprintName = "KleinKit tvOS"
             ReferencedContainer = "container:KleinKit.xcodeproj">
          </BuildableReference>

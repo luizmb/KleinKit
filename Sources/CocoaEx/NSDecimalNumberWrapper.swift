@@ -1,10 +1,3 @@
-//
-//  NSDecimalNumberEx.swift
-//  KleinKit
-//
-//  Created by Luiz Rodrigo Martins Barbosa on 25.01.18.
-//
-
 import Foundation
 
 public struct NSDecimalNumberWrapper: Decodable {

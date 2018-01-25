@@ -1,10 +1,3 @@
-//
-//  AppState.swift
-//  KleinKit iOSTests
-//
-//  Created by Luiz Rodrigo Martins Barbosa on 25.01.18.
-//
-
 import Foundation
 
 public struct AppState: Equatable {
