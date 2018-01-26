@@ -52,7 +52,7 @@ class JsonParserTests: UnitTest {
         """
 
         let result: Result<Sample> = JsonParser.decode(jsonString.data(using: .utf8)!)
-        guard case .error = result else {
+        guard case .failure = result else {
             XCTFail("Unexpected parser success: \(result)")
             return
         }

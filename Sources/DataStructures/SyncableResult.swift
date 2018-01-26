@@ -12,7 +12,10 @@ public func ==<T>(lhs: SyncableResult<T>, rhs: SyncableResult<T>) -> Bool {
     case (.neverLoaded, .neverLoaded):
         return true
     case (.syncing(_, let lhsOldValue), .syncing(_, let rhsOldValue)):
-        return lhsOldValue == rhsOldValue
+        if let lhsOldValue = lhsOldValue, let rhsOldValue = rhsOldValue {
+            return lhsOldValue == rhsOldValue
+        }
+        return lhsOldValue == nil && rhsOldValue == nil
     case (.loaded(let lhsResult), .loaded(let rhsResult)):
         return lhsResult == rhsResult
     default: return false
@@ -44,51 +47,52 @@ extension SyncableResult {
 // As Array of Equatable is not Equatable (despite of having `==` function), we have to duplicate
 // this enum for the array case. This won't longer be required as soon as SE-0143 is available
 
-public enum SyncableArrayResult<T: Equatable> {
-    case neverLoaded
-    case syncing(task: CancelableTask, oldValue: ResultArray<T>?)
-    case loaded(ResultArray<T>)
-}
+//public enum SyncableArrayResult<T: Equatable> {
+//    case neverLoaded
+//    case syncing(task: CancelableTask, oldValue: Result<[T]>?)
+//    case loaded(Result<[T]>)
+//}
+//
+//extension SyncableArrayResult {
+//    public func possibleResult() -> Result<[T]>? {
+//        switch self {
+//        case .neverLoaded: return nil
+//        case .syncing(_, let oldValue): return oldValue
+//        case .loaded(let value): return value
+//        }
+//    }
+//
+//    public func possibleValue() -> [T]? {
+//        return self.possibleResult().flatMap {
+//            switch $0 {
+//            case .success(let value): return value
+//            default: return nil
+//            }
+//        }
+//    }
+//}
+//
+//extension SyncableArrayResult {
+//    public func map<B: Equatable>(_ transform: (T) -> B) -> SyncableArrayResult<B> {
+//        switch self {
+//        case .neverLoaded: return .neverLoaded
+//        case .syncing(let task, let oldValue):
+//            return .syncing(task: task, oldValue: oldValue.map { $0.map(transform) })
+//        case .loaded(let value): return .loaded(value.map(transform))
+//        }
+//    }
+//}
+//
+//extension SyncableArrayResult: Equatable {}
+//public func ==<T>(lhs: SyncableArrayResult<T>, rhs: SyncableArrayResult<T>) -> Bool {
+//    switch (lhs, rhs) {
+//    case (.neverLoaded, .neverLoaded):
+//        return true
+//    case (.syncing(_, let lhsOldValue), .syncing(_, let rhsOldValue)):
+//        return lhsOldValue == rhsOldValue
+//    case (.loaded(let lhsResult), .loaded(let rhsResult)):
+//        return lhsResult == rhsResult
+//    default: return false
+//    }
+//}
 
-extension SyncableArrayResult {
-    public func possibleResult() -> ResultArray<T>? {
-        switch self {
-        case .neverLoaded: return nil
-        case .syncing(_, let oldValue): return oldValue
-        case .loaded(let value): return value
-        }
-    }
-
-    public func possibleValue() -> [T]? {
-        return self.possibleResult().flatMap {
-            switch $0 {
-            case .success(let value): return value
-            default: return nil
-            }
-        }
-    }
-}
-
-extension SyncableArrayResult {
-    public func map<B: Equatable>(_ transform: (T) -> B) -> SyncableArrayResult<B> {
-        switch self {
-        case .neverLoaded: return .neverLoaded
-        case .syncing(let task, let oldValue):
-            return .syncing(task: task, oldValue: oldValue.map { $0.map(transform) })
-        case .loaded(let value): return .loaded(value.map(transform))
-        }
-    }
-}
-
-extension SyncableArrayResult: Equatable {}
-public func ==<T>(lhs: SyncableArrayResult<T>, rhs: SyncableArrayResult<T>) -> Bool {
-    switch (lhs, rhs) {
-    case (.neverLoaded, .neverLoaded):
-        return true
-    case (.syncing(_, let lhsOldValue), .syncing(_, let rhsOldValue)):
-        return lhsOldValue == rhsOldValue
-    case (.loaded(let lhsResult), .loaded(let rhsResult)):
-        return lhsResult == rhsResult
-    default: return false
-    }
-}

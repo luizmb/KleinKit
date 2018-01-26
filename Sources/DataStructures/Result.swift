@@ -1,76 +1,115 @@
 import Foundation
 
-public enum Result<T: Equatable> {
+public enum Result<T> {
     case success(T)
-    case error(Error)
+    case failure(Error)
 }
 
 // MARK: - Functor, Monad
 extension Result {
-    public func map<B>(_ transform: (T) -> (B)) -> Result<B> {
+    @_inlineable
+    public func map<B>(_ transform: (T) throws -> B) rethrows -> Result<B> {
         switch self {
-        case .error(let error): return .error(error)
-        case .success(let valueT): return .success(transform(valueT))
+        case .success(let valueT): return .success(try transform(valueT))
+        case .failure(let error): return .failure(error)
         }
     }
 
-    public func flatMap<B>(_ transform: (T) -> (Result<B>)) -> Result<B> {
+    @_inlineable
+    public func flatMap<B>(_ transform: (T) throws -> Result<B>) rethrows -> Result<B> {
         switch self {
-        case .error(let error): return .error(error)
-        case .success(let valueT): return transform(valueT)
+        case .success(let valueT): return try transform(valueT)
+        case .failure(let error): return .failure(error)
         }
     }
 }
 
-// MARK: - Equatable
-extension Result: Equatable {
-    public static func ==<T>(lhs: Result<T>, rhs: Result<T>) -> Bool {
-        switch (lhs, rhs) {
-        case (.error(let errorLeft), .error(let errorRight)):
-            return errorLeft.localizedDescription == errorRight.localizedDescription
-        case (.success(let valueLeft), .success(let valueRight)):
-            return valueLeft == valueRight
-        default: return false
-        }
+// MARK: - Equality for Equatable
+@_inlineable
+public func == <T: Equatable>(lhs: Result<T>, rhs: Result<T>) -> Bool {
+    switch (lhs, rhs) {
+    case let (.success(l), .success(r)):
+        return l == r
+    case let (.failure(l), .failure(r)):
+        return l.localizedDescription == r.localizedDescription
+    default:
+        return false
     }
 }
 
-// Workaround while waiting for 'SE-0143: Conditional Conformance'
-// https://github.com/apple/swift-evolution/blob/master/proposals/0143-conditional-conformances.md
-
-// As Array of Equatable is not Equatable (despite of having `==` function), we have to duplicate
-// this enum for the array case. This won't longer be required as soon as SE-0143 is available
-public enum ResultArray<T: Equatable> {
-    case success([T])
-    case error(Error)
+@_inlineable
+public func != <T: Equatable>(lhs: Result<T>, rhs: Result<T>) -> Bool {
+    return !(lhs == rhs)
 }
 
-// MARK: - Functor, Monad
-extension ResultArray {
-    func map<B: Equatable>(_ transform: (T) -> (B)) -> ResultArray<B> {
-        switch self {
-        case .error(let error): return .error(error)
-        case .success(let arrayOfT): return .success(arrayOfT.map(transform))
-        }
-    }
-
-    func flatMap<B: Equatable>(_ transform: (T) -> (B?)) -> ResultArray<B> {
-        switch self {
-        case .error(let error): return .error(error)
-        case .success(let arrayOfT): return .success(arrayOfT.flatMap(transform))
-        }
+// MARK: - Equality for Optional
+@_inlineable
+public func == <T: Equatable>(lhs: Result<Optional<T>>, rhs: Result<Optional<T>>) -> Bool {
+    switch (lhs, rhs) {
+    case let (.success(l), .success(r)):
+        return l == r
+    case let (.failure(l), .failure(r)):
+        return l.localizedDescription == r.localizedDescription
+    default:
+        return false
     }
 }
 
-// MARK: - Equatable
-extension ResultArray: Equatable {
-    public static func ==<T>(lhs: ResultArray<T>, rhs: ResultArray<T>) -> Bool {
-        switch (lhs, rhs) {
-        case (.error(let errorLeft), .error(let errorRight)):
-            return errorLeft.localizedDescription == errorRight.localizedDescription
-        case (.success(let valueLeft), .success(let valueRight)):
-            return valueLeft == valueRight
-        default: return false
-        }
+@_inlineable
+public func != <T: Equatable>(lhs: Result<Optional<T>>, rhs: Result<Optional<T>>) -> Bool {
+    return !(lhs == rhs)
+}
+
+// MARK: - Equality for Array
+@_inlineable
+public func == <T: Equatable>(lhs: Result<Array<T>>, rhs: Result<Array<T>>) -> Bool {
+    switch (lhs, rhs) {
+    case let (.success(l), .success(r)):
+        return l == r
+    case let (.failure(l), .failure(r)):
+        return l.localizedDescription == r.localizedDescription
+    default:
+        return false
     }
+}
+
+@_inlineable
+public func != <T: Equatable>(lhs: Result<Array<T>>, rhs: Result<Array<T>>) -> Bool {
+    return !(lhs == rhs)
+}
+
+// MARK: - Coalescing operator
+infix operator ???: NilCoalescingPrecedence
+
+@_transparent
+public func ??? <T>(result: Result<T>, defaultValue: @autoclosure () throws -> T)
+    rethrows -> T {
+        switch result {
+        case .success(let value):
+            return value
+        case .failure:
+            return try defaultValue()
+        }
+}
+
+@_transparent
+public func ??? <T>(result: Result<T>, defaultValue: @autoclosure () throws -> Result<T>)
+    rethrows -> Result<T> {
+        switch result {
+        case .success(let value):
+            return .success(value)
+        case .failure:
+            return try defaultValue()
+        }
+}
+
+@_transparent
+public func ??? <T>(result: Result<T>, defaultValue: @autoclosure () throws -> T?)
+    rethrows -> T? {
+        switch result {
+        case .success(let value):
+            return value
+        case .failure:
+            return try defaultValue()
+        }
 }

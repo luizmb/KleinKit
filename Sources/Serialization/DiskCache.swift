@@ -15,7 +15,7 @@ public class DiskCache: RepositoryProtocol {
     public func load(filename: String) -> Result<Data> {
         guard let path = documentsFolder?.appendingPathComponent(filename),
             let data = FileManager.default.contents(atPath: path) else {
-                return .error(FileError.notFound)
+                return .failure(FileError.notFound)
         }
 
         return .success(data)

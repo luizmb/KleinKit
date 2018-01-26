@@ -50,7 +50,7 @@ class MockRepository: RepositoryProtocol {
     var calledLoad: String?
     var onCallLoad: ((String) -> (Result<Data>))?
     func load(filename: String) -> Result<Data> {
-        let result = onCallLoad?(filename) ?? .error(AnyError())
+        let result = onCallLoad?(filename) ?? .failure(AnyError())
         calledLoad = filename
         return result
     }

@@ -30,7 +30,7 @@ public class JsonParser {
             let result = try decoder.decode(T.self, from: data)
             return .success(result)
         } catch {
-            return .error(error)
+            return .failure(error)
         }
     }
 }
