@@ -131,6 +131,7 @@
 		D5DE7E3E201955A2001B8C51 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7E3B201955A2001B8C51 /* Store.swift */; };
 		D5DE7E40201955C9001B8C51 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7E3F201955C9001B8C51 /* AppState.swift */; };
 		D5DE7E4220195653001B8C51 /* EntryPointReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7E4120195653001B8C51 /* EntryPointReducer.swift */; };
+		D5FD5D1A201C0DE600C2FF7C /* AlertNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FD5D19201C0DE600C2FF7C /* AlertNotification.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -213,6 +214,7 @@
 		D5DE7E3B201955A2001B8C51 /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		D5DE7E3F201955C9001B8C51 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		D5DE7E4120195653001B8C51 /* EntryPointReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryPointReducer.swift; sourceTree = "<group>"; };
+		D5FD5D19201C0DE600C2FF7C /* AlertNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertNotification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -321,6 +323,7 @@
 		D5DE7D6520194AC9001B8C51 /* CocoaEx */ = {
 			isa = PBXGroup;
 			children = (
+				D5FD5D19201C0DE600C2FF7C /* AlertNotification.swift */,
 				D5DE7E0820195126001B8C51 /* AlertManager.swift */,
 				D5DE7D6820194AC9001B8C51 /* Array.swift */,
 				D5DE7DEC20194F69001B8C51 /* Character+Codable.swift */,
@@ -623,6 +626,7 @@
 				D5DE7DD020194AC9001B8C51 /* Result.swift in Sources */,
 				D5DE7DA920194AC9001B8C51 /* UIWindow.swift in Sources */,
 				D5DE7DDF20194AC9001B8C51 /* ConfigurableCell.swift in Sources */,
+				D5FD5D1A201C0DE600C2FF7C /* AlertNotification.swift in Sources */,
 				D5DE7D8B20194AC9001B8C51 /* ConstructorType.swift in Sources */,
 				D5DE7DC720194AC9001B8C51 /* JsonParser.swift in Sources */,
 				D5DE7E00201950BC001B8C51 /* UnitKnob.swift in Sources */,
