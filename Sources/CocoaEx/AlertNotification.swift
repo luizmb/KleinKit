@@ -8,7 +8,7 @@ public struct AlertNotification {
 }
 
 extension AlertNotification: Equatable {}
-public func == (lhs: Notification, rhs: Notification) -> Bool {
+public func == (lhs: AlertNotification, rhs: AlertNotification) -> Bool {
     guard lhs.title == rhs.title else { return false }
     guard lhs.message == rhs.message else { return false }
     guard lhs.level == rhs.level else { return false }
