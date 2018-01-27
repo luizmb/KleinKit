@@ -14,13 +14,13 @@ final class TargetAction: NSObject {
 }
 
 extension UIBarButtonItem {
-    convenience init(image: UIImage?, style: UIBarButtonItemStyle, disposableBag: inout [Any], onTap: @escaping () -> ()) {
+    public convenience init(image: UIImage?, style: UIBarButtonItemStyle, disposableBag: inout [Any], onTap: @escaping () -> ()) {
         let targetAction = TargetAction(onTap)
         disposableBag.append(targetAction)
         self.init(image: image, style: style, target: targetAction, action: targetAction.selector)
     }
 
-    convenience init(barButtonSystemItem systemItem: UIBarButtonSystemItem, disposableBag: inout [Any], onTap: @escaping () -> ()) {
+    public convenience init(barButtonSystemItem systemItem: UIBarButtonSystemItem, disposableBag: inout [Any], onTap: @escaping () -> ()) {
         let targetAction = TargetAction(onTap)
         disposableBag.append(targetAction)
         self.init(barButtonSystemItem: systemItem, target: targetAction, action: targetAction.selector)
