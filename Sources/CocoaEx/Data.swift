@@ -2,57 +2,57 @@ import Foundation
 
 extension Data {
 
-    func range(_ start: Int, _ length: Int) -> Data {
+    public func range(_ start: Int, _ length: Int) -> Data {
         return self.subdata(in: start..<start+length)
     }
 
-    func readValue<T>() -> T {
+    public func readValue<T>() -> T {
         return self.withUnsafeBytes { $0.pointee }
     }
 
-    func readInt32() -> Int32 {
+    public func readInt32() -> Int32 {
         return self.readValue()
     }
 
-    func readUInt32() -> UInt32 {
+    public func readUInt32() -> UInt32 {
         return self.readValue()
     }
 
-    func readInt16() -> Int16 {
+    public func readInt16() -> Int16 {
         return self.readValue()
     }
 
-    func readUInt16() -> UInt16 {
+    public func readUInt16() -> UInt16 {
         return self.readValue()
     }
 
-    func readString() -> String {
+    public func readString() -> String {
         return String(data: self, encoding: .utf8) ?? ""
     }
 
-    func readMirroredString() -> String {
+    public func readMirroredString() -> String {
         return String(readString().reversed())
     }
 
-    func readPercentage() -> Float {
+    public func readPercentage() -> Float {
         let signedIntScale = readInt32()
         let percentage = 0.5 + Float(signedIntScale) / Float(UInt32.max)
         return percentage
     }
 
-    func readVarint() -> Int32 {
+    public func readVarint() -> Int32 {
         return self.range(0, 4).readVarint()
     }
 }
 
 extension Sequence where Element == UInt8 {
-    func hex(withPrefix: Bool = true) -> [String] {
+    public func hex(withPrefix: Bool = true) -> [String] {
         return self.map { "\(withPrefix ? "0x" : "")\(String($0, radix: 16, uppercase: true).leftPadding(toLength: 2, withPad: "0"))" }
     }
 }
 
 extension Sequence where Element == UInt8 {
-    func readVarint() -> Int32? {
+    public func readVarint() -> Int32? {
         var position = 0
         var shift = 25
         var bitPattern: UInt32 = 0x0
