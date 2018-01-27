@@ -7,7 +7,7 @@ extension Array {
 }
 
 extension Array {
-    static func containSameElements<T: Comparable>(_ array1: [T], _ array2: [T]) -> Bool {
+    public static func containSameElements<T: Comparable>(_ array1: [T], _ array2: [T]) -> Bool {
         guard array1.count == array2.count else {
             return false
         }
@@ -17,12 +17,12 @@ extension Array {
 }
 
 extension Array where Element: Hashable {
-    func intersection<S>(_ other: S) -> [Element] where Element == S.Element, S: Sequence {
+    public func intersection<S>(_ other: S) -> [Element] where Element == S.Element, S: Sequence {
         let setSelf: Set<Element> = Set(self)
         return Array(setSelf.intersection(other))
     }
 
-    func distinct() -> [Element] {
+    public func distinct() -> [Element] {
         return Array(Set(self))
     }
 }
