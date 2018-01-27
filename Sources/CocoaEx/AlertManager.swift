@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol AlertManager {
-    func show(notification: Notification)
+    func show(notification: AlertNotification)
 }
