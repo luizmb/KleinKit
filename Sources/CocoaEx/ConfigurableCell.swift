@@ -1,6 +1,6 @@
 import UIKit
 
-protocol ConfigurableCell {
+public protocol ConfigurableCell {
 
     associatedtype DataObject
 
