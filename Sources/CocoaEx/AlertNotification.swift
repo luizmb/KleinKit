@@ -2,9 +2,15 @@ public struct AlertNotification {
     public enum Level {
         case info, success, warning, error
     }
-    let title: String
-    let message: String
-    let level: Level
+    public let title: String
+    public let message: String
+    public let level: Level
+
+    public init(title: String, message: String, level: Level)
+        self.title = title
+        self.message = message
+        self.level = level
+    }
 }
 
 extension AlertNotification: Equatable {}
