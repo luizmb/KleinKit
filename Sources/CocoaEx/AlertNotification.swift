@@ -6,7 +6,7 @@ public struct AlertNotification {
     public let message: String
     public let level: Level
 
-    public init(title: String, message: String, level: Level)
+    public init(title: String, message: String, level: Level) {
         self.title = title
         self.message = message
         self.level = level
