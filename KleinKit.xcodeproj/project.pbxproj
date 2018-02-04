@@ -131,6 +131,7 @@
 		D5DE7E3E201955A2001B8C51 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7E3B201955A2001B8C51 /* Store.swift */; };
 		D5DE7E40201955C9001B8C51 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7E3F201955C9001B8C51 /* AppState.swift */; };
 		D5DE7E4220195653001B8C51 /* EntryPointReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7E4120195653001B8C51 /* EntryPointReducer.swift */; };
+		D5F1BEB62027C30D00615EB3 /* AlertNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FD5D19201C0DE600C2FF7C /* AlertNotification.swift */; };
 		D5FD5D1A201C0DE600C2FF7C /* AlertNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FD5D19201C0DE600C2FF7C /* AlertNotification.swift */; };
 /* End PBXBuildFile section */
 
@@ -696,6 +697,7 @@
 				D5DE7DCE20194AC9001B8C51 /* CancelableTask.swift in Sources */,
 				D5DE7DE320194AC9001B8C51 /* SyncableResult.swift in Sources */,
 				D5DE7D9520194AC9001B8C51 /* Action.swift in Sources */,
+				D5F1BEB62027C30D00615EB3 /* AlertNotification.swift in Sources */,
 				D5DE7DD420194AC9001B8C51 /* SignalProtocol.swift in Sources */,
 				D5DE7DD720194AC9001B8C51 /* Disposable.swift in Sources */,
 				D5DE7DBF20194AC9001B8C51 /* RepositoryProtocol.DI.swift in Sources */,
