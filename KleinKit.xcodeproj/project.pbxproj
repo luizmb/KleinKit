@@ -12,6 +12,14 @@
 		8D049775201A694A009083F6 /* Encodable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D049774201A694A009083F6 /* Encodable+Dictionary.swift */; };
 		8D049777201A6A3C009083F6 /* KeyedDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D049776201A6A3C009083F6 /* KeyedDecodingContainer.swift */; };
 		8D04977A201A6AF3009083F6 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D049779201A6AF3009083F6 /* API.swift */; };
+		D59AF565204A41E900BB8DA5 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D049779201A6AF3009083F6 /* API.swift */; };
+		D59AF566204A41E900BB8DA5 /* URLEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7D7820194AC9001B8C51 /* URLEndpoint.swift */; };
+		D59AF567204A41E900BB8DA5 /* URLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7D6720194AC9001B8C51 /* URLRequest.swift */; };
+		D59AF568204A41E900BB8DA5 /* URLSessionTask+CancelableTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7D7120194AC9001B8C51 /* URLSessionTask+CancelableTask.swift */; };
+		D59AF569204A41E900BB8DA5 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D049779201A6AF3009083F6 /* API.swift */; };
+		D59AF56A204A41E900BB8DA5 /* URLEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7D7820194AC9001B8C51 /* URLEndpoint.swift */; };
+		D59AF56B204A41E900BB8DA5 /* URLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7D6720194AC9001B8C51 /* URLRequest.swift */; };
+		D59AF56C204A41E900BB8DA5 /* URLSessionTask+CancelableTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7D7120194AC9001B8C51 /* URLSessionTask+CancelableTask.swift */; };
 		D5DE7D3A2019494C001B8C51 /* KleinKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D5DE7D382019494C001B8C51 /* KleinKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D5DE7D5920194A6F001B8C51 /* KleinKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D5DE7D382019494C001B8C51 /* KleinKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D5DE7D5A20194A70001B8C51 /* KleinKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D5DE7D382019494C001B8C51 /* KleinKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -689,6 +697,7 @@
 				D5DE7D8320194AC9001B8C51 /* InjectorProtocol.swift in Sources */,
 				D5DE7DF620194FF7001B8C51 /* NSDecimalNumberWrapper.swift in Sources */,
 				D5DE7D9820194AC9001B8C51 /* StoreBase.swift in Sources */,
+				D59AF568204A41E900BB8DA5 /* URLSessionTask+CancelableTask.swift in Sources */,
 				D5DE7D9220194AC9001B8C51 /* ActionAsync.swift in Sources */,
 				D5DE7DA120194AC9001B8C51 /* Array.swift in Sources */,
 				D5DE7E04201950BC001B8C51 /* UnitConverterLogarithmic.swift in Sources */,
@@ -703,13 +712,16 @@
 				D5DE7DD720194AC9001B8C51 /* Disposable.swift in Sources */,
 				D5DE7DBF20194AC9001B8C51 /* RepositoryProtocol.DI.swift in Sources */,
 				D5DE7DDD20194AC9001B8C51 /* Atomic.swift in Sources */,
+				D59AF565204A41E900BB8DA5 /* API.swift in Sources */,
 				D5DE7DF220194FC7001B8C51 /* Data.swift in Sources */,
 				D5DE7D8F20194AC9001B8C51 /* Reducer.swift in Sources */,
 				D5DE7E01201950BC001B8C51 /* UnitKnob.swift in Sources */,
 				D5DE7DC220194AC9001B8C51 /* RepositoryProtocol.swift in Sources */,
 				D5DE7D8620194AC9001B8C51 /* Injector.swift in Sources */,
 				D5DE7DC520194AC9001B8C51 /* DiskCache.swift in Sources */,
+				D59AF567204A41E900BB8DA5 /* URLRequest.swift in Sources */,
 				D5DE7DB020194AC9001B8C51 /* Startable.swift in Sources */,
+				D59AF566204A41E900BB8DA5 /* URLEndpoint.swift in Sources */,
 				D5DE7DA720194AC9001B8C51 /* Date.swift in Sources */,
 				D5DE7DDA20194AC9001B8C51 /* Async.swift in Sources */,
 				D5DE7DEE20194F69001B8C51 /* Character+Codable.swift in Sources */,
@@ -728,6 +740,7 @@
 				D5DE7D8420194AC9001B8C51 /* InjectorProtocol.swift in Sources */,
 				D5DE7DF720194FF7001B8C51 /* NSDecimalNumberWrapper.swift in Sources */,
 				D5DE7D9920194AC9001B8C51 /* StoreBase.swift in Sources */,
+				D59AF56C204A41E900BB8DA5 /* URLSessionTask+CancelableTask.swift in Sources */,
 				D5DE7D9320194AC9001B8C51 /* ActionAsync.swift in Sources */,
 				D5DE7DA220194AC9001B8C51 /* Array.swift in Sources */,
 				D5DE7E05201950BC001B8C51 /* UnitConverterLogarithmic.swift in Sources */,
@@ -742,13 +755,16 @@
 				D5DE7DD820194AC9001B8C51 /* Disposable.swift in Sources */,
 				D5DE7DC020194AC9001B8C51 /* RepositoryProtocol.DI.swift in Sources */,
 				D5DE7DDE20194AC9001B8C51 /* Atomic.swift in Sources */,
+				D59AF569204A41E900BB8DA5 /* API.swift in Sources */,
 				D5DE7DF320194FC7001B8C51 /* Data.swift in Sources */,
 				D5DE7D9020194AC9001B8C51 /* Reducer.swift in Sources */,
 				D5DE7E02201950BC001B8C51 /* UnitKnob.swift in Sources */,
 				D5DE7DC320194AC9001B8C51 /* RepositoryProtocol.swift in Sources */,
 				D5DE7D8720194AC9001B8C51 /* Injector.swift in Sources */,
 				D5DE7DC620194AC9001B8C51 /* DiskCache.swift in Sources */,
+				D59AF56B204A41E900BB8DA5 /* URLRequest.swift in Sources */,
 				D5DE7DB120194AC9001B8C51 /* Startable.swift in Sources */,
+				D59AF56A204A41E900BB8DA5 /* URLEndpoint.swift in Sources */,
 				D5DE7DA820194AC9001B8C51 /* Date.swift in Sources */,
 				D5DE7DDB20194AC9001B8C51 /* Async.swift in Sources */,
 				D5DE7DEF20194F69001B8C51 /* Character+Codable.swift in Sources */,
