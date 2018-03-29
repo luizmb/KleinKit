@@ -1,33 +1,33 @@
 import Foundation
 
 public struct AppState: Equatable {
-    var a: String = "a"
-    var b: String = "b"
-    var c: AnotherStateC = AnotherStateC()
-    var d: AnotherStateD = AnotherStateD()
+    var sutA = "a"
+    var sutB = "b"
+    var sutC = AnotherStateC()
+    var sutD = AnotherStateD()
 
-    public static func ==(lhs: AppState, rhs: AppState) -> Bool {
-        return lhs.a == rhs.a &&
-            lhs.b == rhs.b &&
-            lhs.c == rhs.c &&
-            lhs.d == rhs.d
+    public static func == (lhs: AppState, rhs: AppState) -> Bool {
+        return lhs.sutA == rhs.sutA &&
+            lhs.sutB == rhs.sutB &&
+            lhs.sutC == rhs.sutC &&
+            lhs.sutD == rhs.sutD
     }
 }
 
 public struct AnotherStateC: Equatable {
-    var c_1: String = "c1"
-    var c_2: String = "c2"
+    var sutC1 = "c1"
+    var sutC2 = "c2"
 
-    public static func ==(lhs: AnotherStateC, rhs: AnotherStateC) -> Bool {
-        return lhs.c_1 == rhs.c_1 && lhs.c_2 == rhs.c_2
+    public static func == (lhs: AnotherStateC, rhs: AnotherStateC) -> Bool {
+        return lhs.sutC1 == rhs.sutC1 && lhs.sutC2 == rhs.sutC2
     }
 }
 
 public struct AnotherStateD: Equatable {
-    var d_1: String = "d1"
-    var d_2: String = "d2"
+    var sutD1 = "d1"
+    var sutD2 = "d2"
 
-    public static func ==(lhs: AnotherStateD, rhs: AnotherStateD) -> Bool {
-        return lhs.d_1 == rhs.d_1 && lhs.d_2 == rhs.d_2
+    public static func == (lhs: AnotherStateD, rhs: AnotherStateD) -> Bool {
+        return lhs.sutD1 == rhs.sutD1 && lhs.sutD2 == rhs.sutD2
     }
 }

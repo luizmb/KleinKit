@@ -1,47 +1,48 @@
-import XCTest
 import Foundation
 @testable import KleinKit
+import XCTest
 
+// swiftlint:disable type_body_length
 class DataStructureTests: UnitTest {
     func testAtomic() {
         let array = Atomic<[String]>([])
         XCTAssertTrue(array.atomicProperty.isEmpty)
 
-        array.mutate { s in s.append("a") }
+        array.mutate { str in str.append("a") }
         XCTAssertEqual(array.atomicProperty.count, 1)
         XCTAssertEqual(array.atomicProperty, ["a"])
 
-        array.mutate { s in s.append("b") }
+        array.mutate { str in str.append("b") }
         XCTAssertEqual(array.atomicProperty.count, 2)
         XCTAssertEqual(array.atomicProperty, ["a", "b"])
     }
 
     func testSyncableResult() {
-        let neverLoaded1: SyncableResult<String> = .neverLoaded
-        let neverLoaded2: SyncableResult<String> = .neverLoaded
-        let loading1: SyncableResult<String> = .syncing(task: Cancelable(), oldValue: nil)
-        let loading2: SyncableResult<String> = .syncing(task: Cancelable(), oldValue: nil)
-        let loading3: SyncableResult<String> = .syncing(task: Cancelable(), oldValue: .success("A"))
-        let loading4: SyncableResult<String> = .syncing(task: Cancelable(), oldValue: .failure(AnyError()))
-        let loadedA1: SyncableResult<String> = .loaded(.success("a"))
-        let loadedA2: SyncableResult<String> = .loaded(.success("a"))
-        let loadedB1: SyncableResult<String> = .loaded(.success("b"))
-        let loadedB2: SyncableResult<String> = .loaded(.success("b"))
-        let loadedError1: SyncableResult<String> = .loaded(.failure(AnyError()))
-        let loadedError2: SyncableResult<String> = .loaded(.failure(AnyError()))
+        let notLoaded1: AsyncResult<String> = .notLoaded
+        let notLoaded2: AsyncResult<String> = .notLoaded
+        let loading1: AsyncResult<String> = .loading(task: Cancelable(), oldValue: nil)
+        let loading2: AsyncResult<String> = .loading(task: Cancelable(), oldValue: nil)
+        let loading3: AsyncResult<String> = .loading(task: Cancelable(), oldValue: .success("A"))
+        let loading4: AsyncResult<String> = .loading(task: Cancelable(), oldValue: .failure(AnyError()))
+        let loadedA1: AsyncResult<String> = .loaded(.success("a"))
+        let loadedA2: AsyncResult<String> = .loaded(.success("a"))
+        let loadedB1: AsyncResult<String> = .loaded(.success("b"))
+        let loadedB2: AsyncResult<String> = .loaded(.success("b"))
+        let loadedError1: AsyncResult<String> = .loaded(.failure(AnyError()))
+        let loadedError2: AsyncResult<String> = .loaded(.failure(AnyError()))
 
-        XCTAssertTrue(neverLoaded1 == neverLoaded2)
+        XCTAssertTrue(notLoaded1 == notLoaded2)
         XCTAssertTrue(loading1 == loading2)
         XCTAssertTrue(loadedA1 == loadedA2)
         XCTAssertTrue(loadedB1 == loadedB2)
         XCTAssertTrue(loadedError1 == loadedError2)
 
-        XCTAssertFalse(neverLoaded1 == loading1)
-        XCTAssertFalse(neverLoaded1 == loading3)
-        XCTAssertFalse(neverLoaded1 == loading4)
-        XCTAssertFalse(neverLoaded1 == loadedA1)
-        XCTAssertFalse(neverLoaded1 == loadedB1)
-        XCTAssertFalse(neverLoaded1 == loadedError1)
+        XCTAssertFalse(notLoaded1 == loading1)
+        XCTAssertFalse(notLoaded1 == loading3)
+        XCTAssertFalse(notLoaded1 == loading4)
+        XCTAssertFalse(notLoaded1 == loadedA1)
+        XCTAssertFalse(notLoaded1 == loadedB1)
+        XCTAssertFalse(notLoaded1 == loadedError1)
         XCTAssertFalse(loading1 == loading3)
         XCTAssertFalse(loading1 == loading4)
         XCTAssertFalse(loading1 == loadedA1)
@@ -115,276 +116,284 @@ class DataStructureTests: UnitTest {
     }
 
     func testResultEquatableForString() {
-        let a1: Result<String> = .success("a")
-        let a2: Result<String> = .success("a")
-        let b: Result<String> = .success("b")
-        let c: Result<String> = .failure(AnyError())
+        let sutA1: Result<String> = .success("a")
+        let sutA2: Result<String> = .success("a")
+        let sutB: Result<String> = .success("b")
+        let sutC: Result<String> = .failure(AnyError())
 
-        XCTAssertTrue(a1 == a2)
-        XCTAssertFalse(a1 == b)
-        XCTAssertFalse(a1 == c)
-        XCTAssertFalse(b == c)
+        XCTAssertTrue(sutA1 == sutA2)
+        XCTAssertFalse(sutA1 == sutB)
+        XCTAssertFalse(sutA1 == sutC)
+        XCTAssertFalse(sutB == sutC)
 
-        XCTAssertTrue(a2 == a1)
-        XCTAssertFalse(b == a1)
-        XCTAssertFalse(c == a1)
-        XCTAssertFalse(c == b)
+        XCTAssertTrue(sutA2 == sutA1)
+        XCTAssertFalse(sutB == sutA1)
+        XCTAssertFalse(sutC == sutA1)
+        XCTAssertFalse(sutC == sutB)
 
         // Inverse
 
-        XCTAssertFalse(a1 != a2)
-        XCTAssertTrue(a1 != b)
-        XCTAssertTrue(a1 != c)
-        XCTAssertTrue(b != c)
+        XCTAssertFalse(sutA1 != sutA2)
+        XCTAssertTrue(sutA1 != sutB)
+        XCTAssertTrue(sutA1 != sutC)
+        XCTAssertTrue(sutB != sutC)
 
-        XCTAssertFalse(a2 != a1)
-        XCTAssertTrue(b != a1)
-        XCTAssertTrue(c != a1)
-        XCTAssertTrue(c != b)
+        XCTAssertFalse(sutA2 != sutA1)
+        XCTAssertTrue(sutB != sutA1)
+        XCTAssertTrue(sutC != sutA1)
+        XCTAssertTrue(sutC != sutB)
     }
 
     func testResultEquatableForInt() {
-        let a1: Result<Int> = .success(1)
-        let a2: Result<Int> = .success(1)
-        let b: Result<Int> = .success(2)
-        let c: Result<Int> = .failure(AnyError())
+        let sutA1: Result<Int> = .success(1)
+        let sutA2: Result<Int> = .success(1)
+        let sutB: Result<Int> = .success(2)
+        let sutC: Result<Int> = .failure(AnyError())
 
-        XCTAssertTrue(a1 == a2)
-        XCTAssertFalse(a1 == b)
-        XCTAssertFalse(a1 == c)
-        XCTAssertFalse(b == c)
+        XCTAssertTrue(sutA1 == sutA2)
+        XCTAssertFalse(sutA1 == sutB)
+        XCTAssertFalse(sutA1 == sutC)
+        XCTAssertFalse(sutB == sutC)
 
-        XCTAssertTrue(a2 == a1)
-        XCTAssertFalse(b == a1)
-        XCTAssertFalse(c == a1)
-        XCTAssertFalse(c == b)
+        XCTAssertTrue(sutA2 == sutA1)
+        XCTAssertFalse(sutB == sutA1)
+        XCTAssertFalse(sutC == sutA1)
+        XCTAssertFalse(sutC == sutB)
 
         // Inverse
 
-        XCTAssertFalse(a1 != a2)
-        XCTAssertTrue(a1 != b)
-        XCTAssertTrue(a1 != c)
-        XCTAssertTrue(b != c)
+        XCTAssertFalse(sutA1 != sutA2)
+        XCTAssertTrue(sutA1 != sutB)
+        XCTAssertTrue(sutA1 != sutC)
+        XCTAssertTrue(sutB != sutC)
 
-        XCTAssertFalse(a2 != a1)
-        XCTAssertTrue(b != a1)
-        XCTAssertTrue(c != a1)
-        XCTAssertTrue(c != b)
+        XCTAssertFalse(sutA2 != sutA1)
+        XCTAssertTrue(sutB != sutA1)
+        XCTAssertTrue(sutC != sutA1)
+        XCTAssertTrue(sutC != sutB)
     }
 
     func testResultEquatableForOptionalString() {
-        let a1: Result<String?> = .success("a")
-        let a2: Result<String?> = .success("a")
-        let b: Result<String?> = .success("b")
-        let c: Result<String?> = .failure(AnyError())
-        let d: Result<String?> = .success(nil)
+        let sutA1: Result<String?> = .success("a")
+        let sutA2: Result<String?> = .success("a")
+        let sutB: Result<String?> = .success("b")
+        let sutC: Result<String?> = .failure(AnyError())
+        let sutD: Result<String?> = .success(nil)
 
-        XCTAssertTrue(a1 == a2)
-        XCTAssertFalse(a1 == b)
-        XCTAssertFalse(a1 == c)
-        XCTAssertFalse(a1 == d)
-        XCTAssertFalse(b == c)
-        XCTAssertFalse(b == d)
-        XCTAssertFalse(c == d)
+        XCTAssertTrue(sutA1 == sutA2)
+        XCTAssertFalse(sutA1 == sutB)
+        XCTAssertFalse(sutA1 == sutC)
+        XCTAssertFalse(sutA1 == sutD)
+        XCTAssertFalse(sutB == sutC)
+        XCTAssertFalse(sutB == sutD)
+        XCTAssertFalse(sutC == sutD)
 
-        XCTAssertTrue(a2 == a1)
-        XCTAssertFalse(b == a1)
-        XCTAssertFalse(c == a1)
-        XCTAssertFalse(d == a1)
-        XCTAssertFalse(c == b)
-        XCTAssertFalse(d == b)
-        XCTAssertFalse(d == c)
+        XCTAssertTrue(sutA2 == sutA1)
+        XCTAssertFalse(sutB == sutA1)
+        XCTAssertFalse(sutC == sutA1)
+        XCTAssertFalse(sutD == sutA1)
+        XCTAssertFalse(sutC == sutB)
+        XCTAssertFalse(sutD == sutB)
+        XCTAssertFalse(sutD == sutC)
 
-        XCTAssertTrue(c == .failure(AnyError()))
-        XCTAssertTrue(d == .success(nil))
-        XCTAssertFalse(c != .failure(AnyError()))
-        XCTAssertFalse(d != .success(nil))
+        XCTAssertTrue(sutC == .failure(AnyError()))
+        XCTAssertTrue(sutD == .success(nil))
+        XCTAssertFalse(sutC != .failure(AnyError()))
+        XCTAssertFalse(sutD != .success(nil))
 
         // Inverse
 
-        XCTAssertFalse(a1 != a2)
-        XCTAssertTrue(a1 != b)
-        XCTAssertTrue(a1 != c)
-        XCTAssertTrue(a1 != d)
-        XCTAssertTrue(b != c)
-        XCTAssertTrue(b != d)
-        XCTAssertTrue(c != d)
+        XCTAssertFalse(sutA1 != sutA2)
+        XCTAssertTrue(sutA1 != sutB)
+        XCTAssertTrue(sutA1 != sutC)
+        XCTAssertTrue(sutA1 != sutD)
+        XCTAssertTrue(sutB != sutC)
+        XCTAssertTrue(sutB != sutD)
+        XCTAssertTrue(sutC != sutD)
 
-        XCTAssertFalse(a2 != a1)
-        XCTAssertTrue(b != a1)
-        XCTAssertTrue(c != a1)
-        XCTAssertTrue(d != a1)
-        XCTAssertTrue(c != b)
-        XCTAssertTrue(d != b)
-        XCTAssertTrue(d != c)
+        XCTAssertFalse(sutA2 != sutA1)
+        XCTAssertTrue(sutB != sutA1)
+        XCTAssertTrue(sutC != sutA1)
+        XCTAssertTrue(sutD != sutA1)
+        XCTAssertTrue(sutC != sutB)
+        XCTAssertTrue(sutD != sutB)
+        XCTAssertTrue(sutD != sutC)
     }
 
     func testResultEquatableForArrayOfStrings() {
-        let a1: Result<[String]> = .success(["a", "a"])
-        let a2: Result<[String]> = .success(["a", "a"])
-        let b: Result<[String]> = .success(["a", "b"])
-        let c: Result<[String]> = .success(["b", "a"])
-        let d: Result<[String]> = .failure(AnyError())
-        let e: Result<[String]> = .success([])
+        let sutA1: Result<[String]> = .success(["a", "a"])
+        let sutA2: Result<[String]> = .success(["a", "a"])
+        let sutB: Result<[String]> = .success(["a", "b"])
+        let sutC: Result<[String]> = .success(["b", "a"])
+        let sutD: Result<[String]> = .failure(AnyError())
+        let sutE: Result<[String]> = .success([])
 
-        XCTAssertTrue(a1 == a2)
-        XCTAssertFalse(a1 == b)
-        XCTAssertFalse(a1 == c)
-        XCTAssertFalse(a1 == d)
-        XCTAssertFalse(a1 == e)
-        XCTAssertFalse(b == c)
-        XCTAssertFalse(b == d)
-        XCTAssertFalse(b == e)
-        XCTAssertFalse(c == d)
-        XCTAssertFalse(c == e)
-        XCTAssertFalse(d == e)
-        XCTAssertTrue(a2 == a1)
-        XCTAssertFalse(b == a1)
-        XCTAssertFalse(c == a1)
-        XCTAssertFalse(d == a1)
-        XCTAssertFalse(e == a1)
-        XCTAssertFalse(c == b)
-        XCTAssertFalse(d == b)
-        XCTAssertFalse(e == b)
-        XCTAssertFalse(d == c)
-        XCTAssertFalse(e == c)
-        XCTAssertFalse(e == d)
+        XCTAssertTrue(sutA1 == sutA2)
+        XCTAssertFalse(sutA1 == sutB)
+        XCTAssertFalse(sutA1 == sutC)
+        XCTAssertFalse(sutA1 == sutD)
+        XCTAssertFalse(sutA1 == sutE)
+        XCTAssertFalse(sutB == sutC)
+        XCTAssertFalse(sutB == sutD)
+        XCTAssertFalse(sutB == sutE)
+        XCTAssertFalse(sutC == sutD)
+        XCTAssertFalse(sutC == sutE)
+        XCTAssertFalse(sutD == sutE)
+        XCTAssertTrue(sutA2 == sutA1)
+        XCTAssertFalse(sutB == sutA1)
+        XCTAssertFalse(sutC == sutA1)
+        XCTAssertFalse(sutD == sutA1)
+        XCTAssertFalse(sutE == sutA1)
+        XCTAssertFalse(sutC == sutB)
+        XCTAssertFalse(sutD == sutB)
+        XCTAssertFalse(sutE == sutB)
+        XCTAssertFalse(sutD == sutC)
+        XCTAssertFalse(sutE == sutC)
+        XCTAssertFalse(sutE == sutD)
 
-        XCTAssertTrue(d == .failure(AnyError()))
-        XCTAssertFalse(d != .failure(AnyError()))
+        XCTAssertTrue(sutD == .failure(AnyError()))
+        XCTAssertFalse(sutD != .failure(AnyError()))
+    }
 
-        // Inverse
+    func testResultEquatableForArrayOfStringsInverse() {
+        let sutA1: Result<[String]> = .success(["a", "a"])
+        let sutA2: Result<[String]> = .success(["a", "a"])
+        let sutB: Result<[String]> = .success(["a", "b"])
+        let sutC: Result<[String]> = .success(["b", "a"])
+        let sutD: Result<[String]> = .failure(AnyError())
+        let sutE: Result<[String]> = .success([])
 
-        XCTAssertFalse(a1 != a2)
-        XCTAssertTrue(a1 != b)
-        XCTAssertTrue(a1 != c)
-        XCTAssertTrue(a1 != d)
-        XCTAssertTrue(a1 != e)
-        XCTAssertTrue(b != c)
-        XCTAssertTrue(b != d)
-        XCTAssertTrue(b != e)
-        XCTAssertTrue(c != d)
-        XCTAssertTrue(c != e)
-        XCTAssertTrue(d != e)
-        XCTAssertFalse(a2 != a1)
-        XCTAssertTrue(b != a1)
-        XCTAssertTrue(c != a1)
-        XCTAssertTrue(d != a1)
-        XCTAssertTrue(e != a1)
-        XCTAssertTrue(c != b)
-        XCTAssertTrue(d != b)
-        XCTAssertTrue(e != b)
-        XCTAssertTrue(d != c)
-        XCTAssertTrue(e != c)
-        XCTAssertTrue(e != d)
+        XCTAssertFalse(sutA1 != sutA2)
+        XCTAssertTrue(sutA1 != sutB)
+        XCTAssertTrue(sutA1 != sutC)
+        XCTAssertTrue(sutA1 != sutD)
+        XCTAssertTrue(sutA1 != sutE)
+        XCTAssertTrue(sutB != sutC)
+        XCTAssertTrue(sutB != sutD)
+        XCTAssertTrue(sutB != sutE)
+        XCTAssertTrue(sutC != sutD)
+        XCTAssertTrue(sutC != sutE)
+        XCTAssertTrue(sutD != sutE)
+        XCTAssertFalse(sutA2 != sutA1)
+        XCTAssertTrue(sutB != sutA1)
+        XCTAssertTrue(sutC != sutA1)
+        XCTAssertTrue(sutD != sutA1)
+        XCTAssertTrue(sutE != sutA1)
+        XCTAssertTrue(sutC != sutB)
+        XCTAssertTrue(sutD != sutB)
+        XCTAssertTrue(sutE != sutB)
+        XCTAssertTrue(sutD != sutC)
+        XCTAssertTrue(sutE != sutC)
+        XCTAssertTrue(sutE != sutD)
     }
 
     func testResultMap() {
         let successfulInt1: Result<Int> = .success(1)
         let successfulInt2: Result<Int> = .success(2)
-        let e = AnyError()
-        let errorInt: Result<Int> = .failure(e)
+        let error = AnyError()
+        let errorInt: Result<Int> = .failure(error)
 
         XCTAssertTrue(successfulInt1.map(String.init) == .success("1"))
         XCTAssertTrue(successfulInt2.map(String.init) == .success("2"))
-        XCTAssertTrue(errorInt.map(String.init) == .failure(e))
+        XCTAssertTrue(errorInt.map(String.init) == .failure(error))
     }
 
     func testResultFlatMap() {
         let successfulInt1: Result<Int> = .success(1)
         let successfulInt2: Result<Int> = .success(2)
-        let e = AnyError()
-        let errorInt: Result<Int> = .failure(e)
+        let error = AnyError()
+        let errorInt: Result<Int> = .failure(error)
 
         func successfulFunc(_ input: Int) -> Result<String> {
             return .success(String(input))
         }
 
         func errorFunc(_ input: Int) -> Result<String> {
-            return .failure(e)
+            return .failure(error)
         }
 
         XCTAssertTrue(successfulInt1.flatMap(successfulFunc) == .success("1"))
         XCTAssertTrue(successfulInt2.flatMap(successfulFunc) == .success("2"))
-        XCTAssertTrue(errorInt.flatMap(successfulFunc) == .failure(e))
+        XCTAssertTrue(errorInt.flatMap(successfulFunc) == .failure(error))
 
-        XCTAssertTrue(successfulInt1.flatMap(errorFunc) == .failure(e))
-        XCTAssertTrue(successfulInt2.flatMap(errorFunc) == .failure(e))
-        XCTAssertTrue(errorInt.flatMap(errorFunc) == .failure(e))
+        XCTAssertTrue(successfulInt1.flatMap(errorFunc) == .failure(error))
+        XCTAssertTrue(successfulInt2.flatMap(errorFunc) == .failure(error))
+        XCTAssertTrue(errorInt.flatMap(errorFunc) == .failure(error))
     }
 
     func testResultCoalesceToResultT() {
-        let a: Result<String> = .success("a")
-        let b: Result<String> = .success("b")
-        let c: Result<String> = .failure(AnyError())
-        let d: Result<String> = .failure(AnyError())
+        let sutA: Result<String> = .success("a")
+        let sutB: Result<String> = .success("b")
+        let sutC: Result<String> = .failure(AnyError())
+        let sutD: Result<String> = .failure(AnyError())
 
-        XCTAssertTrue(a ??? b == a)
-        XCTAssertTrue(a ??? c == a)
-        XCTAssertTrue(a ??? d == a)
+        XCTAssertTrue(sutA ??? sutB == sutA)
+        XCTAssertTrue(sutA ??? sutC == sutA)
+        XCTAssertTrue(sutA ??? sutD == sutA)
 
-        XCTAssertTrue(b ??? a == b)
-        XCTAssertTrue(b ??? c == b)
-        XCTAssertTrue(b ??? d == b)
+        XCTAssertTrue(sutB ??? sutA == sutB)
+        XCTAssertTrue(sutB ??? sutC == sutB)
+        XCTAssertTrue(sutB ??? sutD == sutB)
 
-        XCTAssertTrue(c ??? a == a)
-        XCTAssertTrue(c ??? b == b)
-        XCTAssertTrue(c ??? d == .failure(AnyError()))
+        XCTAssertTrue(sutC ??? sutA == sutA)
+        XCTAssertTrue(sutC ??? sutB == sutB)
+        XCTAssertTrue(sutC ??? sutD == .failure(AnyError()))
 
-        XCTAssertTrue(d ??? a == a)
-        XCTAssertTrue(d ??? b == b)
-        XCTAssertTrue(d ??? c == .failure(AnyError()))
+        XCTAssertTrue(sutD ??? sutA == sutA)
+        XCTAssertTrue(sutD ??? sutB == sutB)
+        XCTAssertTrue(sutD ??? sutC == .failure(AnyError()))
 
         // Repeat but with nil prefix
 
-        XCTAssertTrue(c ??? a ??? b == a)
-        XCTAssertTrue(c ??? a ??? c == a)
-        XCTAssertTrue(c ??? a ??? d == a)
+        XCTAssertTrue(sutC ??? sutA ??? sutB == sutA)
+        XCTAssertTrue(sutC ??? sutA ??? sutC == sutA)
+        XCTAssertTrue(sutC ??? sutA ??? sutD == sutA)
 
-        XCTAssertTrue(c ??? b ??? a == b)
-        XCTAssertTrue(c ??? b ??? c == b)
-        XCTAssertTrue(c ??? b ??? d == b)
+        XCTAssertTrue(sutC ??? sutB ??? sutA == sutB)
+        XCTAssertTrue(sutC ??? sutB ??? sutC == sutB)
+        XCTAssertTrue(sutC ??? sutB ??? sutD == sutB)
 
-        XCTAssertTrue(d ??? c ??? a == a)
-        XCTAssertTrue(d ??? c ??? b == b)
-        XCTAssertTrue(d ??? c ??? d == .failure(AnyError()))
+        XCTAssertTrue(sutD ??? sutC ??? sutA == sutA)
+        XCTAssertTrue(sutD ??? sutC ??? sutB == sutB)
+        XCTAssertTrue(sutD ??? sutC ??? sutD == .failure(AnyError()))
 
-        XCTAssertTrue(c ??? d ??? a == a)
-        XCTAssertTrue(c ??? d ??? b == b)
-        XCTAssertTrue(c ??? d ??? c == .failure(AnyError()))
+        XCTAssertTrue(sutC ??? sutD ??? sutA == sutA)
+        XCTAssertTrue(sutC ??? sutD ??? sutB == sutB)
+        XCTAssertTrue(sutC ??? sutD ??? sutC == .failure(AnyError()))
     }
 
     func testResultCoalesceToT() {
-        let a: Result<String> = .success("a")
-        let b: Result<String> = .failure(AnyError())
-        let c = "c"
+        let sutA: Result<String> = .success("a")
+        let sutB: Result<String> = .failure(AnyError())
+        let sutC = "c"
 
-        XCTAssertTrue(a ??? c == "a")
-        XCTAssertTrue(b ??? c == "c")
+        XCTAssertTrue(sutA ??? sutC == "a")
+        XCTAssertTrue(sutB ??? sutC == "c")
 
         // Repeat but with nil prefix
 
-        XCTAssertTrue(b ??? a ??? c == "a")
+        XCTAssertTrue(sutB ??? sutA ??? sutC == "a")
     }
 
     func testResultCoalesceToOptionalT() {
-        let a: Result<String> = .success("a")
-        let b: Result<String> = .failure(AnyError())
-        let c: String? = "c"
-        let d: String? = nil
+        let sutA: Result<String> = .success("a")
+        let sutB: Result<String> = .failure(AnyError())
+        let sutC: String? = "c"
+        let sutD: String? = nil
 
-        XCTAssertTrue(a ??? c == "a")
-        XCTAssertTrue(a ??? d == "a")
+        XCTAssertTrue(sutA ??? sutC == "a")
+        XCTAssertTrue(sutA ??? sutD == "a")
 
-        XCTAssertTrue(b ??? c == "c")
-        XCTAssertTrue(b ??? d == nil)
+        XCTAssertTrue(sutB ??? sutC == "c")
+        XCTAssertTrue(sutB ??? sutD == nil)
 
         // Repeat but with nil prefix
 
-        XCTAssertTrue(b ??? a ??? c == "a")
-        XCTAssertTrue(b ??? a ??? d == "a")
+        XCTAssertTrue(sutB ??? sutA ??? sutC == "a")
+        XCTAssertTrue(sutB ??? sutA ??? sutD == "a")
 
-        XCTAssertTrue(b ??? b ??? c == "c")
-        XCTAssertTrue(b ??? b ??? d == nil)
+        XCTAssertTrue(sutB ??? sutB ??? sutC == "c")
+        XCTAssertTrue(sutB ??? sutB ??? sutD == nil)
     }
 }
+// swiftlint:enable type_body_length

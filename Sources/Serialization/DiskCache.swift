@@ -22,10 +22,10 @@ public class DiskCache: RepositoryProtocol {
     }
 
     private var documentsFolder: String? {
-        let f = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!.appendingPathComponent("BitcoinRatesCache")
+        let file = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!.appendingPathComponent("CacheFolder")
         do {
-            try FileManager.default.createDirectory(atPath: f, withIntermediateDirectories: true, attributes: nil)
-            return f
+            try FileManager.default.createDirectory(atPath: file, withIntermediateDirectories: true, attributes: nil)
+            return file
         } catch {
             return nil
         }

@@ -3,7 +3,7 @@ import Foundation
 extension Data {
 
     public func range(_ start: Int, _ length: Int) -> Data {
-        return self.subdata(in: start..<start+length)
+        return self.subdata(in: start..<start + length)
     }
 
     public func readValue<T>() -> T {

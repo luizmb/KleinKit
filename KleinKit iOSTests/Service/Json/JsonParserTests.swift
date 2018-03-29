@@ -1,6 +1,6 @@
-import XCTest
 import Foundation
 @testable import KleinKit
+import XCTest
 
 struct Sample: Codable {
     let string: String
@@ -10,7 +10,7 @@ struct Sample: Codable {
 }
 
 extension Sample: Equatable {
-    static func ==(lhs: Sample, rhs: Sample) -> Bool {
+    static func == (lhs: Sample, rhs: Sample) -> Bool {
         return lhs.string == rhs.string &&
             lhs.int == rhs.int &&
             lhs.float == rhs.float &&
@@ -37,7 +37,7 @@ class JsonParserTests: UnitTest {
 
         XCTAssertEqual(sample.string, "A---A")
         XCTAssertEqual(sample.int, 2)
-        XCTAssertEqual(sample.float, 9.2, accuracy: 0.0000000001)
+        XCTAssertEqual(sample.float, 9.2, accuracy: 0.000_000_000_1)
         XCTAssertEqual(sample.bool, true)
     }
 

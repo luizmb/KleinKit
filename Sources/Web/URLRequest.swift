@@ -6,12 +6,15 @@ extension URLRequest {
          urlParams: [String: String] = [:],
          headers: [String: String] = [:]) {
 
-        let urlSuffix = urlParams.count == 0 ? "" : "?" + urlParams.map { k, v in "\(k)=\(v)" }.joined(separator: "&")
+        let urlSuffix = urlParams.isEmpty ? "" : "?" +
+            urlParams.map {
+                [$0, $1].joined(separator: "=")
+            }.joined(separator: "&")
         let url = URL(string: "\(urlString)\(urlSuffix)")!
 
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod
-        headers.forEach { k, v in request.setValue(v, forHTTPHeaderField: k) }
+        headers.forEach { key, value in request.setValue(value, forHTTPHeaderField: key) }
         self = request
     }
 }

@@ -24,58 +24,19 @@ extension Result {
     }
 }
 
-// MARK: - Equality for Equatable
+// MARK: - Equatable
+extension Result: Equatable where T: Equatable { }
+
 @_inlineable
-public func == <T: Equatable>(lhs: Result<T>, rhs: Result<T>) -> Bool {
+public func == <T>(lhs: Result<T>, rhs: Result<T>) -> Bool where T: Equatable {
     switch (lhs, rhs) {
-    case let (.success(l), .success(r)):
-        return l == r
-    case let (.failure(l), .failure(r)):
-        return l.localizedDescription == r.localizedDescription
+    case let (.success(lhs), .success(rhs)):
+        return lhs == rhs
+    case let (.failure(lhs), .failure(rhs)):
+        return lhs.localizedDescription == rhs.localizedDescription
     default:
         return false
     }
-}
-
-@_inlineable
-public func != <T: Equatable>(lhs: Result<T>, rhs: Result<T>) -> Bool {
-    return !(lhs == rhs)
-}
-
-// MARK: - Equality for Optional
-@_inlineable
-public func == <T: Equatable>(lhs: Result<Optional<T>>, rhs: Result<Optional<T>>) -> Bool {
-    switch (lhs, rhs) {
-    case let (.success(l), .success(r)):
-        return l == r
-    case let (.failure(l), .failure(r)):
-        return l.localizedDescription == r.localizedDescription
-    default:
-        return false
-    }
-}
-
-@_inlineable
-public func != <T: Equatable>(lhs: Result<Optional<T>>, rhs: Result<Optional<T>>) -> Bool {
-    return !(lhs == rhs)
-}
-
-// MARK: - Equality for Array
-@_inlineable
-public func == <T: Equatable>(lhs: Result<Array<T>>, rhs: Result<Array<T>>) -> Bool {
-    switch (lhs, rhs) {
-    case let (.success(l), .success(r)):
-        return l == r
-    case let (.failure(l), .failure(r)):
-        return l.localizedDescription == r.localizedDescription
-    default:
-        return false
-    }
-}
-
-@_inlineable
-public func != <T: Equatable>(lhs: Result<Array<T>>, rhs: Result<Array<T>>) -> Bool {
-    return !(lhs == rhs)
 }
 
 // MARK: - Coalescing operator

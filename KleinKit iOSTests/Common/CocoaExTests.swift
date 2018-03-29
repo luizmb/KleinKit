@@ -1,6 +1,6 @@
-import XCTest
 import Foundation
 @testable import KleinKit
+import XCTest
 
 class AnotherCollectionReusableView: UICollectionReusableView { }
 class AnotherTableViewCell: UITableViewCell { }
@@ -29,37 +29,37 @@ class CocoaExTests: UnitTest {
     }
 
     func testDateBackToMidnight() {
-        let f = DateFormatter()
-        f.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
 
-        XCTAssertEqual(f.date(from: "2010-09-15 09:20:10")!.backToMidnight,
-                       f.date(from: "2010-09-15 00:00:00")!)
-        XCTAssertEqual(Date(timeIntervalSince1970: 388416300).backToMidnight,
-                       Date(timeIntervalSince1970: 388360800))
+        XCTAssertEqual(formatter.date(from: "2010-09-15 09:20:10")!.backToMidnight,
+                       formatter.date(from: "2010-09-15 00:00:00")!)
+        XCTAssertEqual(Date(timeIntervalSince1970: 388_416_300).backToMidnight,
+                       Date(timeIntervalSince1970: 388_360_800))
     }
 
     func testDateAddingDays() {
-        let f = DateFormatter()
-        f.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        XCTAssertEqual(f.date(from: "2010-09-15 09:20:10")!.addingDays(7),
-                       f.date(from: "2010-09-22 09:20:10")!)
-        XCTAssertEqual(f.date(from: "2010-09-15 09:20:10")!.addingDays(-14),
-                       f.date(from: "2010-09-01 09:20:10")!)
-        XCTAssertEqual(Date(timeIntervalSince1970: 388416300).addingDays(2),
-                       Date(timeIntervalSince1970: 388416300 + 2 * 24 * 60 * 60))
-        XCTAssertEqual(Date(timeIntervalSince1970: 388416300).addingDays(-7),
-                       Date(timeIntervalSince1970: 388416300 - 7 * 24 * 60 * 60))
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        XCTAssertEqual(formatter.date(from: "2010-09-15 09:20:10")!.addingDays(7),
+                       formatter.date(from: "2010-09-22 09:20:10")!)
+        XCTAssertEqual(formatter.date(from: "2010-09-15 09:20:10")!.addingDays(-14),
+                       formatter.date(from: "2010-09-01 09:20:10")!)
+        XCTAssertEqual(Date(timeIntervalSince1970: 388_416_300).addingDays(2),
+                       Date(timeIntervalSince1970: 388_416_300 + 2 * 24 * 60 * 60))
+        XCTAssertEqual(Date(timeIntervalSince1970: 388_416_300).addingDays(-7),
+                       Date(timeIntervalSince1970: 388_416_300 - 7 * 24 * 60 * 60))
     }
 
     func testDateFormatting() {
-        let refDate = Date(timeIntervalSince1970: 388416300)
-        let en = Locale(identifier: "en")
-        let f1 = refDate.formattedFromComponents(styleAttitude: .short, year: false, month: true, day: true,
-                                                 hour: true, minute: true, second: true, locale: en)
-        let f2 = refDate.formattedFromComponents(styleAttitude: .short, year: true, month: true, day: true,
-                                                 hour: true, minute: true, second: true, locale: en)
-        XCTAssertEqual(f1, "04/23, 15:25:00")
-        XCTAssertEqual(f2, "04/23/82, 15:25:00")
+        let refDate = Date(timeIntervalSince1970: 388_416_300)
+        let locale = Locale(identifier: "en")
+        let formatter1 = refDate.formattedFromComponents(styleAttitude: .short, year: false, month: true, day: true,
+                                                         hour: true, minute: true, second: true, locale: locale)
+        let formatter2 = refDate.formattedFromComponents(styleAttitude: .short, year: true, month: true, day: true,
+                                                         hour: true, minute: true, second: true, locale: locale)
+        XCTAssertEqual(formatter1, "04/23, 15:25:00")
+        XCTAssertEqual(formatter2, "04/23/82, 15:25:00")
     }
 
     func testReuseIdentifier() {
@@ -76,28 +76,15 @@ class CocoaExTests: UnitTest {
         XCTAssertEqual(AnotherViewController.nibName, "AnotherView")
     }
 
-    func testNib() {
-//        let vc = HistoricalViewController()
-//        XCTAssertTrue(HistoricalView.nib().instantiate(withOwner: vc, options: nil).first as? HistoricalView != nil)
-//        XCTAssertTrue(HistoricalViewController.nib().instantiate(withOwner: vc, options: nil).first as? HistoricalView != nil)
-        XCTFail()
-    }
-
-    func testStartable() {
-//        let sut = HistoricalViewController.start()
-//        XCTAssertNotNil(sut)
-        XCTFail()
-    }
-
-    func testWindowHelpers() {
-        let window = UIWindow.create()
-        XCTAssertEqual(window.frame, UIScreen.main.bounds)
-
-        let vc = AnotherViewController()
-        window.setup(with: vc)
-        XCTAssertTrue(window.isKeyWindow)
-        XCTAssertEqual(window.rootViewController, vc)
-    }
+//    func testWindowHelpers() {
+//        let window = UIWindow.create()
+//        XCTAssertEqual(window.frame, UIScreen.main.bounds)
+//
+//        let viewController = AnotherViewController()
+//        window.setup(with: viewController)
+//        XCTAssertTrue(window.isKeyWindow)
+//        XCTAssertEqual(window.rootViewController, viewController)
+//    }
 
     func testURLRequest() {
         let sut1 = URLRequest(url: "http://www.foo.com/resource/test.json", httpMethod: "GET")

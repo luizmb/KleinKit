@@ -1,5 +1,5 @@
-import UIKit
 @testable import KleinKit
+import UIKit
 
 private func defaultDate() -> Date { return Date(timeIntervalSinceReferenceDate: 0) }
 
@@ -14,9 +14,9 @@ class Cancelable: CancelableTask {
 
 class MockWindow: NSObject, Window {
     static func create() -> Window {
-        let w = MockWindow()
-        w.frame = UIScreen.main.bounds
-        return w
+        let window = MockWindow()
+        window.frame = UIScreen.main.bounds
+        return window
     }
 
     @discardableResult func setup(with viewController: UIViewController?) -> Window {
@@ -27,11 +27,11 @@ class MockWindow: NSObject, Window {
 
     var frame: CGRect = .zero
     var isKeyWindow: Bool = false
-    var rootViewController: UIViewController? = nil
+    var rootViewController: UIViewController?
 }
 
 class MockApplication: NSObject, Application {
-    var keepScreenOnChanged: ((Bool) -> ())?
+    var keepScreenOnChanged: ((Bool) -> Void)?
     var keepScreenOn: Bool = false {
         didSet {
             keepScreenOnChanged?(keepScreenOn)
@@ -41,7 +41,7 @@ class MockApplication: NSObject, Application {
 
 class MockRepository: RepositoryProtocol {
     var calledSave: (Data, String)?
-    var onCallSave: ((Data, String) -> ())?
+    var onCallSave: ((Data, String) -> Void)?
     func save(data: Data, filename: String) {
         onCallSave?(data, filename)
         calledSave = (data, filename)

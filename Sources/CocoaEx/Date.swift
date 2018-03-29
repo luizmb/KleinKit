@@ -29,7 +29,10 @@ extension Date {
     private static var getNow: () -> Date = { Date() }
     #endif
 
-    public func formattedFromComponents(styleAttitude: DateFormatter.Style, year: Bool = false, month: Bool = false, day: Bool = false, hour: Bool = false, minute: Bool = false, second: Bool = false, locale: Locale = Locale.current) -> String {
+    public func formattedFromComponents(styleAttitude: DateFormatter.Style,
+                                        year: Bool = false, month: Bool = false, day: Bool = false,
+                                        hour: Bool = false, minute: Bool = false, second: Bool = false,
+                                        locale: Locale = Locale.current) -> String {
         let long = styleAttitude == .long || styleAttitude == .full
         let short = styleAttitude == .short
         var comps = ""

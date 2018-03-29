@@ -9,8 +9,8 @@ import UIKit
 
 open class ENSideMenuNavigationController: UINavigationController, ENSideMenuProtocol {
 
-    open var sideMenu : ENSideMenu?
-    open var sideMenuAnimationType : ENSideMenuAnimation = .default
+    open var sideMenu: ENSideMenu?
+    open var sideMenuAnimationType: ENSideMenuAnimation = .default
     var hamburger: UIBarButtonItem?
 
     // MARK: - Life cycle
@@ -27,7 +27,7 @@ open class ENSideMenuNavigationController: UINavigationController, ENSideMenuPro
             setMainViewController(rootViewController)
         }
 
-        sideMenu = ENSideMenu(sourceView: self.view, menuViewController: menuViewController, menuPosition:.left)
+        sideMenu = ENSideMenu(sourceView: self.view, menuViewController: menuViewController, menuPosition: .left)
         view.bringSubview(toFront: navigationBar)
     }
 

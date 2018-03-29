@@ -1,16 +1,18 @@
 import Foundation
-import XCTest
 @testable import KleinKit
+import XCTest
 
 class UnitTest: XCTestCase {
     var injector: MockInjector!
 
     override func setUp() {
+        super.setUp()
         injector = MockInjector()
         MockInjector.getInjector = { [unowned self] in self.injector }
     }
 
     override func tearDown() {
+        super.tearDown()
         MockInjector.getInjector = { nil }
     }
 }

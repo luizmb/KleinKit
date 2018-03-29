@@ -101,9 +101,9 @@
 		D5DE7DDF20194AC9001B8C51 /* ConfigurableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7D7F20194AC9001B8C51 /* ConfigurableCell.swift */; };
 		D5DE7DE020194AC9001B8C51 /* ConfigurableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7D7F20194AC9001B8C51 /* ConfigurableCell.swift */; };
 		D5DE7DE120194AC9001B8C51 /* ConfigurableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7D7F20194AC9001B8C51 /* ConfigurableCell.swift */; };
-		D5DE7DE220194AC9001B8C51 /* SyncableResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7D8020194AC9001B8C51 /* SyncableResult.swift */; };
-		D5DE7DE320194AC9001B8C51 /* SyncableResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7D8020194AC9001B8C51 /* SyncableResult.swift */; };
-		D5DE7DE420194AC9001B8C51 /* SyncableResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7D8020194AC9001B8C51 /* SyncableResult.swift */; };
+		D5DE7DE220194AC9001B8C51 /* AsyncResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7D8020194AC9001B8C51 /* AsyncResult.swift */; };
+		D5DE7DE320194AC9001B8C51 /* AsyncResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7D8020194AC9001B8C51 /* AsyncResult.swift */; };
+		D5DE7DE420194AC9001B8C51 /* AsyncResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7D8020194AC9001B8C51 /* AsyncResult.swift */; };
 		D5DE7DE520194AC9001B8C51 /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7D8120194AC9001B8C51 /* Signal.swift */; };
 		D5DE7DE620194AC9001B8C51 /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7D8120194AC9001B8C51 /* Signal.swift */; };
 		D5DE7DE720194AC9001B8C51 /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DE7D8120194AC9001B8C51 /* Signal.swift */; };
@@ -199,7 +199,7 @@
 		D5DE7D7D20194AC9001B8C51 /* Async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Async.swift; sourceTree = "<group>"; };
 		D5DE7D7E20194AC9001B8C51 /* Atomic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atomic.swift; sourceTree = "<group>"; };
 		D5DE7D7F20194AC9001B8C51 /* ConfigurableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurableCell.swift; sourceTree = "<group>"; };
-		D5DE7D8020194AC9001B8C51 /* SyncableResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncableResult.swift; sourceTree = "<group>"; };
+		D5DE7D8020194AC9001B8C51 /* AsyncResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncResult.swift; sourceTree = "<group>"; };
 		D5DE7D8120194AC9001B8C51 /* Signal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal.swift; sourceTree = "<group>"; };
 		D5DE7DE820194C6F001B8C51 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		D5DE7DEC20194F69001B8C51 /* Character+Codable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Character+Codable.swift"; sourceTree = "<group>"; };
@@ -378,6 +378,7 @@
 			isa = PBXGroup;
 			children = (
 				D5DE7D7D20194AC9001B8C51 /* Async.swift */,
+				D5DE7D8020194AC9001B8C51 /* AsyncResult.swift */,
 				D5DE7D7E20194AC9001B8C51 /* Atomic.swift */,
 				D5DE7D7920194AC9001B8C51 /* CancelableTask.swift */,
 				D5DE7D7C20194AC9001B8C51 /* Disposable.swift */,
@@ -385,7 +386,6 @@
 				D5DE7D7A20194AC9001B8C51 /* Result.swift */,
 				D5DE7D8120194AC9001B8C51 /* Signal.swift */,
 				D5DE7D7B20194AC9001B8C51 /* SignalProtocol.swift */,
-				D5DE7D8020194AC9001B8C51 /* SyncableResult.swift */,
 			);
 			path = DataStructures;
 			sourceTree = "<group>";
@@ -482,6 +482,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D5DE7D3D2019494C001B8C51 /* Build configuration list for PBXNativeTarget "KleinKit iOS" */;
 			buildPhases = (
+				D55072D1206D8144003EF4FB /* Lint */,
 				D5DE7D302019494C001B8C51 /* Sources */,
 				D5DE7D312019494C001B8C51 /* Frameworks */,
 				D5DE7D322019494C001B8C51 /* Headers */,
@@ -557,7 +558,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				TargetAttributes = {
 					D5DE7D342019494C001B8C51 = {
 						CreatedOnToolsVersion = 9.2;
@@ -628,6 +629,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		D55072D1206D8144003EF4FB /* Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Lint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, please run `brew install swiftlint`\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D5DE7D302019494C001B8C51 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -657,7 +675,7 @@
 				D5DE7D8820194AC9001B8C51 /* Mapper.swift in Sources */,
 				D5DE7DF120194FC7001B8C51 /* Data.swift in Sources */,
 				D5DE7DCD20194AC9001B8C51 /* CancelableTask.swift in Sources */,
-				D5DE7DE220194AC9001B8C51 /* SyncableResult.swift in Sources */,
+				D5DE7DE220194AC9001B8C51 /* AsyncResult.swift in Sources */,
 				D5DE7DE920194C6F001B8C51 /* UIImage.swift in Sources */,
 				D5DE7D9420194AC9001B8C51 /* Action.swift in Sources */,
 				D5DE7DD320194AC9001B8C51 /* SignalProtocol.swift in Sources */,
@@ -705,7 +723,7 @@
 				D5DE7DE620194AC9001B8C51 /* Signal.swift in Sources */,
 				D5DE7D8920194AC9001B8C51 /* Mapper.swift in Sources */,
 				D5DE7DCE20194AC9001B8C51 /* CancelableTask.swift in Sources */,
-				D5DE7DE320194AC9001B8C51 /* SyncableResult.swift in Sources */,
+				D5DE7DE320194AC9001B8C51 /* AsyncResult.swift in Sources */,
 				D5DE7D9520194AC9001B8C51 /* Action.swift in Sources */,
 				D5F1BEB62027C30D00615EB3 /* AlertNotification.swift in Sources */,
 				D5DE7DD420194AC9001B8C51 /* SignalProtocol.swift in Sources */,
@@ -748,7 +766,7 @@
 				D5DE7DE720194AC9001B8C51 /* Signal.swift in Sources */,
 				D5DE7D8A20194AC9001B8C51 /* Mapper.swift in Sources */,
 				D5DE7DCF20194AC9001B8C51 /* CancelableTask.swift in Sources */,
-				D5DE7DE420194AC9001B8C51 /* SyncableResult.swift in Sources */,
+				D5DE7DE420194AC9001B8C51 /* AsyncResult.swift in Sources */,
 				D5DE7D9620194AC9001B8C51 /* Action.swift in Sources */,
 				D5F1BEB72027C6FE00615EB3 /* AlertNotification.swift in Sources */,
 				D5DE7DD520194AC9001B8C51 /* SignalProtocol.swift in Sources */,
@@ -802,12 +820,64 @@
 		D5885FDC201948D1000B2BED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};
 		D5885FDD201948D1000B2BED /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
 			};
 			name = Release;
 		};
@@ -842,7 +912,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -918,7 +988,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;

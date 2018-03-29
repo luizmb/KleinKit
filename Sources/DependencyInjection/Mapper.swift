@@ -2,7 +2,7 @@ import Foundation
 
 public struct Mapper {
     public init() { }
-    
+
     private var dictionary: [String: AnyConstructorType] = [String: AnyConstructorType]()
 
     public mutating func mapSingleton<T>(_ singleton: @escaping () -> T) {
@@ -23,19 +23,19 @@ public struct Mapper {
 
     public func getFactory<T>() -> (() -> T)? {
         guard let any = dictionary[String(describing: T.self)] as? ConstructorType<T> else { return nil }
-        guard case .factory(let factory) = any else { return nil}
+        guard case .factory(let factory) = any else { return nil }
         return factory()
     }
 
     public func getSingleton<T>() -> T? {
         guard let any = dictionary[String(describing: T.self)] as? ConstructorType<T> else { return nil }
-        guard case .singleton(let factory) = any else { return nil}
+        guard case .singleton(let factory) = any else { return nil }
         return factory()
     }
 
 #if DEBUG
     public func dump(to mapper: inout Mapper) {
-        dictionary.forEach { k, v in mapper.dictionary[k] = v }
+        dictionary.forEach { key, value in mapper.dictionary[key] = value }
     }
 #endif
 }
